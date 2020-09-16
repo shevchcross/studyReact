@@ -17,6 +17,8 @@ public class FilmEntity {
 
     private Long duration;
 
+    private String name;
+
     private FilmTypeEntity filmType;
 
     @OneToMany(mappedBy = "hallEntity", cascade = CascadeType.ALL)

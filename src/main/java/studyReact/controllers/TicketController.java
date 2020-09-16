@@ -21,44 +21,6 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-//    private static TicketEntity save(TicketEntity ticketEntity) {
-//        if (ticketMap == null) {
-//            ticketMap = new HashMap<BigInteger, TicketEntity>();
-//            nextId = BigInteger.ONE;
-//        }
-//        if (ticketEntity.getId() != null) {
-//            TicketEntity oldTicketEntity = ticketMap.get(ticketEntity.getId());
-//            if (oldTicketEntity == null) {
-//                return null;
-//            }
-//            ticketMap.remove(ticketEntity.getId());
-//            ticketMap.put(ticketEntity.getId(), ticketEntity);
-//            return ticketEntity;
-//        }
-//
-//        ticketEntity.setId(nextId);
-//        nextId = nextId.add(BigInteger.ONE);
-//        ticketMap.put(ticketEntity.getId(), ticketEntity);
-//        return ticketEntity;
-//    }
-//
-//    private static boolean delete(BigInteger id) {
-//        TicketEntity deletedTicketEntity = ticketMap.remove(id);
-//        if (deletedTicketEntity == null) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    static {
-//        TicketEntity ticketEntity1 = new TicketEntity();
-//        ticketEntity1.setNamePerformance("Zolushka");
-//        save(ticketEntity1);
-//
-//        TicketEntity ticketEntity2 = new TicketEntity();
-//        ticketEntity2.setNamePerformance("Shreck");
-//        save(ticketEntity2);
-//    }
 //
 //    @RequestMapping(
 //            value = "/api/gettickets",
