@@ -2,7 +2,7 @@ package studyReact.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import studyReact.models.FilmTypeEntity;
+import studyReact.models.FilmType;
 
 
 @Setter
@@ -15,7 +15,7 @@ public class HallDTO {
 
     private Integer totalSeats;
 
-    private FilmTypeEntity filmTypeEntity;
+    private FilmType filmType;
 
     private SessionDTO session;
 

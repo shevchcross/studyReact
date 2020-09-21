@@ -1,10 +1,10 @@
 package studyReact.models;
 
-public enum SeatTypeEntity {
+public enum SeatType {
     STANDART,
     COMFORT,
     REDUSED;
 
-    SeatTypeEntity() {
+    SeatType() {
     }
 }

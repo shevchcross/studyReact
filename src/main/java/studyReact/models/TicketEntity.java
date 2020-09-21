@@ -2,11 +2,8 @@ package studyReact.models;
 
 import lombok.Getter;
 import lombok.Setter;
-import studyReact.dto.TicketDTO;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.util.Date;
 
 
 @Entity
@@ -20,15 +17,15 @@ public class TicketEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "SEAT_ID")
-    private SeatEntity seat;
+    private Seat seat;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "SEASSION_ID")
-    private SessionEntity session;
+    private Session session;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "CUSTOMER_ID")
-    private CustomerEntity customer;
+    private Customer customer;
 
 
     public TicketEntity() {

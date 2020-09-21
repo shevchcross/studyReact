@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class SessionEntity {
+public class Session {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -20,17 +20,17 @@ public class SessionEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "HALL_ID")
-    private HallEntity hallEntity;
+    private Hall hall;
 
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "FILM_ID")
-    private FilmEntity filmEntity;
+    private Film film;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     private List<TicketEntity> tickets;
 
-    public SessionEntity() {
+    public Session() {
     }
 }

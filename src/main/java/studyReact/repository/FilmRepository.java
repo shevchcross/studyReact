@@ -1,8 +1,10 @@
 package studyReact.repository;
 
-import org.springframework.data.repository.CrudRepository;
-import studyReact.models.FilmEntity;
-import studyReact.models.TicketEntity;
 
-public interface FilmRepository extends CrudRepository<FilmEntity, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import studyReact.models.Film;
+
+
+public interface FilmRepository extends JpaRepository<Film, Long> {
 }

@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class FilmEntity {
+public class Film {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -19,11 +19,11 @@ public class FilmEntity {
 
     private String name;
 
-    private FilmTypeEntity filmType;
+    private FilmType filmType;
 
-    @OneToMany(mappedBy = "hallEntity", cascade = CascadeType.ALL)
-    private List<SessionEntity> session;
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    private List<Session> session;
 
-    public FilmEntity() {
+    public Film() {
     }
 }

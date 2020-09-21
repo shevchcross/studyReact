@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class CustomerEntity {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -18,6 +18,6 @@ public class CustomerEntity {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<TicketEntity> tickets;
 
-    public CustomerEntity() {
+    public Customer() {
     }
 }

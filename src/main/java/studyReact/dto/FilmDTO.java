@@ -3,7 +3,7 @@ package studyReact.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import studyReact.models.FilmTypeEntity;
+import studyReact.models.FilmType;
 
 
 @Setter
@@ -14,7 +14,7 @@ public class FilmDTO {
 
     private Long duration;
 
-    private FilmTypeEntity filmType;
+    private FilmType filmType;
 
     private SessionDTO session;
 

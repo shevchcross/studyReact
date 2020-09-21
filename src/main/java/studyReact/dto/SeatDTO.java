@@ -2,9 +2,7 @@ package studyReact.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import studyReact.models.SeatTypeEntity;
-
-import javax.persistence.Entity;
+import studyReact.models.SeatType;
 
 @Setter
 @Getter
@@ -12,7 +10,7 @@ public class SeatDTO {
 
     private Long id;
 
-    private SeatTypeEntity seatType;
+    private SeatType seatType;
 
     private HallDTO hall;
 
