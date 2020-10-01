@@ -29,7 +29,7 @@ public class FilmService {
     }
 
     public Film deleteFilm(String name) throws FilmNotFoundException {
-        Film filmById = filmRepository.findByName(name).orElseThrow(() -> new FilmNotFoundException(name));
+        Film filmById = filmRepository.findByName(name).orElse(new Film());
         filmRepository.delete(filmById);
         return filmById;
     }
@@ -37,5 +37,21 @@ public class FilmService {
     public Film findFilmByName(String name) throws FilmNotFoundException{
         Film filmByName = filmRepository.findByName(name).orElseThrow(() -> new FilmNotFoundException(name));
         return filmByName;
+    }
+
+    public Film deleteFilmById(Long id) throws FilmNotFoundException {
+        Film filmById = filmRepository.findById(id).orElseThrow(() -> new FilmNotFoundException(id));
+        filmRepository.delete(filmById);
+        return filmById;
+    }
+
+
+    public Film findFilmById(Long id) throws FilmNotFoundException {
+        Film filmById = filmRepository.findById(id).orElseThrow(() -> new FilmNotFoundException(id));
+        return filmById;
+    }
+
+    public void deleteAll() {
+        filmRepository.deleteAll();
     }
 }

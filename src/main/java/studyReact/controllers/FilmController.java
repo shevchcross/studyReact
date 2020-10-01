@@ -24,29 +24,45 @@ public class FilmController {
         return new ResponseEntity<Film>(filmService.save(film), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{id}", produces = {"application/json"})
-    public ResponseEntity<Film> getFilm(@PathVariable("id") Long id) {
-        return new ResponseEntity<Film>(filmService.getById(id), HttpStatus.OK);
-    }
+//    @GetMapping(value = "/{id}", produces = {"application/json"})
+//    public ResponseEntity<Film> getFilm(@PathVariable("id") Long id) {
+//        return new ResponseEntity<Film>(filmService.getById(id), HttpStatus.OK);
+//    }
 
-    @GetMapping( produces = {"application/json"} )
+    @GetMapping(produces = {"application/json"})
     public List<Film> getAllFilms() {
         return filmService.findAll();
     }
 
-    @DeleteMapping(value = "/{name}", produces = "application/json")
+    @DeleteMapping(value = "/name/{name}", produces = "application/json")
     public
     @ResponseBody
-    Film deleteFilm(@PathVariable("name") String name) throws FilmNotFoundException {
+    Film delete(@PathVariable("name") String name) throws FilmNotFoundException {
         return filmService.deleteFilm(name);
     }
 
-    @GetMapping(value = "/byname/{name}", produces = {"application/json"})
+    @DeleteMapping(value = "/{id}", produces = "application/json")
+    public
+    @ResponseBody
+    Film deleteById(@PathVariable("id") Long id) throws FilmNotFoundException {
+        return filmService.deleteFilmById(id);
+    }
+
+    @GetMapping(value = "/name/{name}", produces = {"application/json"})
     public
     @ResponseBody
     Film findFilmByName(@PathVariable("name") String name) throws FilmNotFoundException {
         Film filmByName = filmService.findFilmByName(name);
         return filmByName;
+    }
+
+    @GetMapping(value = "/{id}", produces = {"application/json"})
+    public
+    @ResponseBody
+    Film findFilmById(@PathVariable("id") Long id) throws FilmNotFoundException {
+
+        Film findFilmById = filmService.findFilmById(id);
+        return findFilmById;
     }
 
 

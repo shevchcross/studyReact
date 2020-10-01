@@ -2,6 +2,7 @@ package studyReact.steps;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.DataTableType;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,8 +11,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.test.context.junit4.SpringRunner;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import studyReact.exceptions.FilmNotFoundException;
 import studyReact.models.Film;
@@ -31,7 +34,7 @@ import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 @Log4j2
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class StepDefinitions extends CommonStep{
+public class StepDefinitions extends CommonStep {
 
 
     @LocalServerPort
@@ -52,6 +55,20 @@ public class StepDefinitions extends CommonStep{
         return film;
     }
 
+    @Given("existing Film")
+    public void putUserIntoDB(DataTable dataTable) {
+        List<Film> users = new ArrayList<>(dataTable.asList(Film.class));
+        users.forEach(user -> {
+            filmService.save(user);
+        });
+    }
+
+    @Given("Application started")
+    @Transactional
+    @Modifying
+    public void applicationStarted() {
+        filmService.deleteAll();
+    }
 
     @When("called POST method for {string} for create new Film  with request content {string}")
     public void saveFilm(String url, String film) {
@@ -64,16 +81,34 @@ public class StepDefinitions extends CommonStep{
         assertThat("status code is incorrect : " + response.getBody(), currentStatusCode, is(statusCode));
     }
 
-    @Then("assert that Film has")
+    @Then("assert that response contains Film")
     public void assert_that_Film_has(DataTable dataTable) throws FilmNotFoundException {
         List<Film> films = new ArrayList<>(dataTable.asList(Film.class));
         for (Film film : films) {
             Film actualFilm = filmService.findFilmByName(film.getName());
-            if (actualFilm !=null) {
+            if (actualFilm != null) {
                 compareFilm(actualFilm, film);
             } else {
                 Assertions.assertThat(false)
                         .overridingErrorMessage("Expected Configuration with Name %s does not exist", film.getName())
+                        .isTrue();
+            }
+        }
+    }
+
+    @And("assert that Film not exists")
+    public void configurationNotExists(DataTable dataTable) {
+        List<Film> films = new ArrayList<>(dataTable.asList(Film.class));
+        for (Film film : films) {
+            Film actualFilm = null;
+            try {
+                actualFilm = filmService.findFilmByName(film.getName());
+            } catch (FilmNotFoundException e) {
+                actualFilm=null;
+            }
+            if (actualFilm != null) {
+                Assertions.assertThat(false)
+                        .overridingErrorMessage("Expected Film with name %s does not exist", film.getName())
                         .isTrue();
             }
         }
@@ -84,33 +119,23 @@ public class StepDefinitions extends CommonStep{
         executeGet("http://localhost:" + port + url);
     }
 
-    @When("alled DELETE method for {string} for find Film")
+    @When("called DELETE method for {string} for delete Film")
+    @Transactional
+    @Modifying
     public void alled_DELETE_method_for_for_find_Film(String url) {
         executeDelete("http://localhost:" + port + url);
-        throw new io.cucumber.java.PendingException();
     }
 
 
-//    @Then("assert that Film  does not exit")
-//    public void assert_that_Film_does_not_exit(io.cucumber.datatable.DataTable dataTable) {
-//        // Write code here that turns the phrase above into concrete actions
-//        // For automatic transformation, change DataTable to one of
-//        // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-//        // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-//        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-//        //
-//        // For other transformations you can register a DataTableType.
-//        throw new io.cucumber.java.PendingException();
-//    }
-private void compareFilm (Film actualFilm, Film expectedFilm) {
-    Assertions.assertThat(expectedFilm.getDuration())
-            .overridingErrorMessage("Expected Film with Duration %s but had %s",
-                    expectedFilm.getDuration(), expectedFilm.getName())
-            .isEqualTo(actualFilm.getDuration());
-    Assertions.assertThat(expectedFilm.getDuration())
-            .overridingErrorMessage("Expected Film with Duration %s but had %s",
-                    expectedFilm.getDuration(), expectedFilm.getName())
-            .isEqualTo(actualFilm.getDuration());
-}
+    private void compareFilm(Film actualFilm, Film expectedFilm) {
+        Assertions.assertThat(expectedFilm.getDuration())
+                .overridingErrorMessage("Expected Film with Duration %s but had %s",
+                        expectedFilm.getDuration(), expectedFilm.getName())
+                .isEqualTo(actualFilm.getDuration());
+        Assertions.assertThat(expectedFilm.getDuration())
+                .overridingErrorMessage("Expected Film with Duration %s but had %s",
+                        expectedFilm.getDuration(), expectedFilm.getName())
+                .isEqualTo(actualFilm.getDuration());
+    }
 
 }
