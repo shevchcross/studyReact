@@ -8,7 +8,7 @@ Feature: Film functionality
       | 3000     | Same            |
   When called POST method for '/films' for create new Film  with request content '/bdd/request/postCreateFilm.json'
     Then response contains status code 201
-    And assert that response contains Film
+    And assert that the database contains Film
       | duration | name            |
       | 2200     | Vlastelin       |
 
@@ -21,7 +21,7 @@ Feature: Film functionality
       | 3000     | Vlastelin       |
     When called GET method for '/films/name/Vlastelin' for find Film
     Then response contains status code 200
-    And assert that response contains Film
+    And assert that the database contains Film
       | duration | name            |
       | 3000     | Vlastelin       |
 
@@ -31,9 +31,9 @@ Feature: Film functionality
     And existing Film
       | duration | name            |
       | 3000     | Same            |
-    When called GET method for '/films/4' for find Film
+    When called GET method for '/films/1' for find Film
     Then response contains status code 200
-    And assert that response contains Film
+    And  assert that the database contains Film
       | duration | name            |
       | 3000     | Same            |
 
@@ -45,7 +45,7 @@ Feature: Film functionality
       | 3000     | Same            |
     When called GET method for '/films' for find Film
     Then response contains status code 200
-    And assert that response contains Film
+    And  assert that the database contains Film
       | duration | name            |
       | 3000     | Same            |
 
@@ -57,7 +57,7 @@ Feature: Film functionality
       | 3000     | Vlastelin       |
     When called DELETE method for '/films/name/Vlastelin' for delete Film
     Then response contains status code 200
-    And assert that Film not exists
+    And  assert that Film not exists
       | duration | name            |
       | 2200     | Vlastelin       |
 

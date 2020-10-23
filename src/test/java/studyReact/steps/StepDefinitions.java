@@ -57,9 +57,9 @@ public class StepDefinitions extends CommonStep {
 
     @Given("existing Film")
     public void putUserIntoDB(DataTable dataTable) {
-        List<Film> users = new ArrayList<>(dataTable.asList(Film.class));
-        users.forEach(user -> {
-            filmService.save(user);
+        List<Film> films = new ArrayList<>(dataTable.asList(Film.class));
+        films.forEach(film -> {
+            filmService.save(film);
         });
     }
 
@@ -68,6 +68,7 @@ public class StepDefinitions extends CommonStep {
     @Modifying
     public void applicationStarted() {
         filmService.deleteAll();
+        filmService.deleteSequence();
     }
 
     @When("called POST method for {string} for create new Film  with request content {string}")
@@ -81,7 +82,7 @@ public class StepDefinitions extends CommonStep {
         assertThat("status code is incorrect : " + response.getBody(), currentStatusCode, is(statusCode));
     }
 
-    @Then("assert that response contains Film")
+    @Then("assert that the database contains Film")
     public void assert_that_Film_has(DataTable dataTable) throws FilmNotFoundException {
         List<Film> films = new ArrayList<>(dataTable.asList(Film.class));
         for (Film film : films) {

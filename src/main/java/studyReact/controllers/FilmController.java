@@ -24,10 +24,6 @@ public class FilmController {
         return new ResponseEntity<Film>(filmService.save(film), HttpStatus.CREATED);
     }
 
-//    @GetMapping(value = "/{id}", produces = {"application/json"})
-//    public ResponseEntity<Film> getFilm(@PathVariable("id") Long id) {
-//        return new ResponseEntity<Film>(filmService.getById(id), HttpStatus.OK);
-//    }
 
     @GetMapping(produces = {"application/json"})
     public List<Film> getAllFilms() {
@@ -43,9 +39,8 @@ public class FilmController {
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public
-    @ResponseBody
-    Film deleteById(@PathVariable("id") Long id) throws FilmNotFoundException {
-        return filmService.deleteFilmById(id);
+    ResponseEntity deleteById(@PathVariable("id") Long id)  {
+        return ResponseEntity.status(filmService.deleteFilmById(id)).build();
     }
 
     @GetMapping(value = "/name/{name}", produces = {"application/json"})
@@ -60,9 +55,8 @@ public class FilmController {
     public
     @ResponseBody
     Film findFilmById(@PathVariable("id") Long id) throws FilmNotFoundException {
-
-        Film findFilmById = filmService.findFilmById(id);
-        return findFilmById;
+        Film filmById = filmService.findFilmById(id);
+        return filmById;
     }
 
 
