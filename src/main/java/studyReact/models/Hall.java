@@ -12,15 +12,18 @@ import java.util.List;
 @Setter
 public class Hall {
 
+   @Column(name="MY_HALL_ID")
    @Id
    @GeneratedValue(strategy=GenerationType.AUTO)
-
    private Long id;
 
+   @Column(name="MY_HALL_NAME")
    private String name;
 
+   @Column(name="MY_HALL_TOTALSEATS")
    private Integer totalSeats;
 
+   @Column(name="MY_HALL_FILMTYPE")
    private FilmType filmType;
 
    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
