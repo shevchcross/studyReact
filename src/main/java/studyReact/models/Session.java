@@ -12,12 +12,12 @@ import java.util.List;
 @Setter
 public class Session {
 
-    @Column(name="MY_SESSION_ID")
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(name="MY_SESSION_BASECOST")
+
     private Double baseCost;
 
 
@@ -25,7 +25,7 @@ public class Session {
     @JoinColumn(name = "HALL_ID")
     private Hall hall;
 
-    @Column(name="MY_SESSION_DATE")
+
     private Date date;
 
 

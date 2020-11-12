@@ -11,12 +11,12 @@ import java.util.List;
 @Setter
 public class Seat {
 
-    @Column(name="MY_SEAT_ID")
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(name="MY_SEAT_SEATTYPE")
+
     private SeatType seatType;
 
 

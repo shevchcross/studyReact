@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 public class TicketEntity {
 
-    @Column(name="MY_TICKET_ID")
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
